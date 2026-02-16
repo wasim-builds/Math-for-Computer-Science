@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="display-6 fw-bold">Rummy AI Assistant 🎴</h2>
+            <p class="text-muted">Analyze your hand, predict win probability, and get AI strategy tips.</p>
+            <a href="/rummy/math" class="btn btn-sm btn-outline-secondary rounded-pill">📖 Read the Math Behind This</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <form method="POST">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Your Hand (13 Cards)</label>
+                            <input type="text" class="form-control form-control-lg" name="hand"
+                                placeholder="e.g., 7H, 8H, 9H, KD, KC, KS, ... (Comma separated)" value="{{ hand_str }}"
+                                required>
+                            <div class="form-text">
+                                Use abbreviations: <strong>H</strong>earts, <strong>D</strong>iamonds,
+                                <strong>C</strong>lubs, <strong>S</strong>pades.<br>
+                                Example: <code>10H</code> (10 of Hearts), <code>AD</code> (Ace of Diamonds).
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" name="action" value="evaluate" class="btn btn-primary px-4">
+                                📊 Score Hand
+                            </button>
+                            <button type="submit" name="action" value="analyze" class="btn btn-outline-success px-4">
+                                🧠 AI Strategy
+                            </button>
+                            <button type="submit" name="action" value="predict" class="btn btn-outline-warning px-4">
+                                🔮 Win Probability
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if result.error %}
+                    <div class="alert alert-danger mt-4">
+                        {{ result.error }}
+                    </div>
+                    {% endif %}
+
+                    {% if result.score is defined %}
+                    <hr class="my-4">
+                    <div class="row text-center g-3">
+                        <div class="col-md-4">
+                            <div class="p-3 bg-light rounded-3 h-100">
+                                <small class="text-muted d-block text-uppercase">Deadwood Score</small>
+                                <span class="display-6 fw-bold text-primary">{{ result.score }}</span>
+                                <p class="small text-muted mt-2">Lower is better.</p>
+                            </div>
+                        </div>
+
+                        {% if result.best_discard %}
+                        <div class="col-md-4">
+                            <div class="p-3 bg-success-subtle rounded-3 h-100">
+                                <small class="text-success-emphasis d-block text-uppercase">Best Move</small>
+                                <span class="h4 fw-bold text-success d-block my-2">Discard {{ result.best_discard
+                                    }}</span>
+                                <small>Lowers Expected Bad Points to: <strong>{{ result.best_ev }}</strong></small>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if result.prediction %}
+                        <div class="col-md-4">
+                            <div class="p-3 bg-{{ result.pred_color }}-subtle rounded-3 h-100">
+                                <small class="text-{{ result.pred_color }}-emphasis d-block text-uppercase">Win
+                                    Prediction</small>
+                                <span class="h5 fw-bold text-{{ result.pred_color }}">{{ result.prediction }}</span>
+                                <br>
+                                <small>Avg Hand: {{ result.avg_benchmark }}</small>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Detailed Analysis Table -->
+                    {% if result.ev_data %}
+                    <div class="mt-5">
+                        <h4 class="mb-3">Detailed AI Analysis</h4>
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Card to Discard</th>
+                                        <th>New Expected Score (Lower is Better)</th>
+                                        <th>AI Recommendation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for card, score in result.ev_data %}
+                                    <tr class="{% if loop.first %}table-success{% endif %}">
+                                        <td class="fw-bold">{{ card }}</td>
+                                        <td>{{ score }}</td>
+                                        <td>
+                                            {% if loop.first %}
+                                            <span class="badge bg-success">Best Choice</span>
+                                            {% elif loop.index <= 3 %} <span class="badge bg-warning text-dark">
+                                                Alternative</span>
+                                                {% else %}
+                                                <span class="badge bg-secondary">Bad Move</span>
+                                                {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -19,8 +19,90 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(os.path.join(project_root, 'Math-with-Python-for-CS', 'projects', 'advanced'))
 
 import rsa_encryption
+# Add Game Probability path
+sys.path.append(os.path.join(project_root, 'Math-with-Python-for-CS', '06-Game-Probability'))
+
+import deck_simulation
+import rummy_hand_evaluator
+import monte_carlo_rummy
+import strategy_analysis
 
 app = Flask(__name__)
+
+# ... (Universal Solver Setup) ...
+
+@app.route('/rummy', methods=['GET', 'POST'])
+def rummy_tool():
+    result = {}
+    hand_str = ""
+    
+    if request.method == 'POST':
+        hand_str = request.form.get('hand', '')
+        action = request.form.get('action')
+        
+        try:
+            # Parse Hand
+            card_strs = [s.strip() for s in hand_str.split(',') if s.strip()]
+            if len(card_strs) != 13:
+                 result['error'] = f"Please enter exactly 13 cards. You entered {len(card_strs)}."
+            else:
+                hand = [deck_simulation.Card.from_str(s) for s in card_strs]
+                
+                # 1. Base Evaluation
+                score = rummy_hand_evaluator.evaluate_hand_score(hand)
+                result['score'] = score
+                
+                # 2. Strategy Analysis (AI Suggestion)
+                if action == 'analyze':
+                    # Check Discards
+                    ev = strategy_analysis.calculate_expected_value_discard(hand, hand)
+                    best_discard = min(ev, key=ev.get)
+                    
+                    # Sort by EV (ascending deadwood is better)
+                    ev_sorted = sorted(ev.items(), key=lambda item: item[1])
+                    
+                    # Convert dict to list of tuples for template
+                    result['best_discard'] = str(best_discard)
+                    result['best_ev'] = f"{ev[best_discard]:.2f}"
+                    result['ev_data'] = [(str(card), f"{score:.2f}") for card, score in ev_sorted]
+                    
+                # 3. Monte Carlo Prediction
+                elif action == 'predict':
+                    # ... (existing code) ...
+                    sim_results = monte_carlo_rummy.monte_carlo_simulation(1000)
+                    avg = sim_results['average_score']
+                    
+                    if score < avg - 20:
+                        pred = "Excellent (High Win Probability)"
+                        color = "success"
+                    elif score < avg:
+                        pred = "Good (Above Average)"
+                        color = "info"
+                    else:
+                        pred = "Poor (Below Average)"
+                        color = "danger"
+                        
+                    result['prediction'] = pred
+                    result['pred_color'] = color
+                    result['avg_benchmark'] = f"{avg:.2f}"
+
+        except Exception as e:
+            result['error'] = f"Error: {str(e)}"
+            
+    return render_template('tool_rummy.html', result=result, hand_str=hand_str)
+
+@app.route('/rummy/math')
+def rummy_math():
+    """Renders the Game Math Documentation."""
+    filepath = os.path.join(project_root, 'Math-with-Python-for-CS', '06-Game-Probability', 'game_math.md')
+    if not os.path.exists(filepath):
+        return "Documentation not found.", 404
+        
+    with open(filepath, 'r') as f:
+        content = f.read()
+    
+    html_content = markdown.markdown(content, extensions=['fenced_code', 'tables'])
+    return render_template('content.html', content=html_content)
 
 # Safe namespace for the Universal Solver
 safe_dict = {
