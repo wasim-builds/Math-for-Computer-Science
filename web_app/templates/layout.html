@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial_scale=1.0">
+    <title>Math for Computer Science</title>
+
+    <!-- Google Fonts: Inter & Merriweather -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <!-- MathJax for LaTeX Rendering -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                Math<span style="color: var(--accent-color);">4</span>CS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-2">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Curriculum
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="navbarDropdown">
+                            <li>
+                                <h6 class="dropdown-header text-uppercase small text-muted">Core Math</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="/content/01-Calculus/limits.md">Calculus</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/content/02-Probability-Statistics/distributions.md">Probability</a></li>
+                            <li><a class="dropdown-item" href="/content/04-Linear-Algebra/matrices.md">Linear
+                                    Algebra</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <h6 class="dropdown-header text-uppercase small text-muted">Computer Science</h6>
+                            </li>
+                            <li><a class="dropdown-item" href="/content/CS-Interview-Math/time_complexity.md">Time
+                                    Complexity</a></li>
+                            <li><a class="dropdown-item"
+                                    href="/content/06-Graphs-Advanced-Topics/shortest_paths.md">Graph Theory</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Interactive Tools
+                        </a>
+                        <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="toolsDropdown">
+                            <li><a class="dropdown-item" href="/limit">Limit Calculator</a></li>
+                            <li><a class="dropdown-item" href="/derivative">Symbolic Derivative</a></li>
+                            <li><a class="dropdown-item" href="/plot_distribution">Distribution Visualizer</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/rsa">RSA Spy Tool 🕵️</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/solver">Universal Solver 🧠</a></li>
+                            <li><a class="dropdown-item" href="/optimize">Optimizer 📉</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <a href="https://github.com/wasim-builds/Math-for-Computer-Science" target="_blank"
+                    class="btn btn-primary ms-3 rounded-pill btn-sm">
+                    GitHub Repo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Spacer for fixed navbar -->
+    <div style="height: 76px;"></div>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="border-top: 1px solid var(--border-color); color: var(--text-muted);">
+        <div class="container">
+            <p class="mb-0 small">&copy; 2026 Math for Computer Science. Designed for Academia.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

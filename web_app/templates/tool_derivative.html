@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Derivative Calculator</h2>
+    <p>Find the symbolic derivative of a function with respect to x.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="expression" class="form-label">Function f(x)</label>
+                    <input type="text" class="form-control" id="expression" name="expression"
+                        placeholder="e.g., x**2 + 3*x" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Differentiate</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            {% if result %}
+            <div class="alert alert-warning mt-4">
+                <strong>Result:</strong> {{ result }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

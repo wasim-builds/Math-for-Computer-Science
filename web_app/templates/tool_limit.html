@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Limit Calculator</h2>
+    <p>Calculate the limit of a mathematical expression as x approaches a point.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="expression" class="form-label">Function f(x)</label>
+                    <input type="text" class="form-control" id="expression" name="expression"
+                        placeholder="e.g., sin(x)/x" required>
+                </div>
+                <div class="mb-3">
+                    <label for="point" class="form-label">Point (approaching)</label>
+                    <input type="text" class="form-control" id="point" name="point"
+                        placeholder="e.g., 0, 2, or infinity" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Calculate Limit</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            {% if result %}
+            <div class="alert alert-info mt-4">
+                <strong>Result:</strong> {{ result }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

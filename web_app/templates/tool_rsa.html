@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>RSA Encryption Tool</h2>
+    <p>Generate keys, encrypt, and decrypt messages using RSA algorithm.</p>
+
+    <div class="row">
+        <!-- Key Generation -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>1. Generate Keys</h4>
+                <form method="POST">
+                    <input type="hidden" name="action" value="generate">
+                    <div class="mb-3">
+                        <label class="form-label">Prime p</label>
+                        <input type="number" name="p" class="form-control" value="61" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Prime q</label>
+                        <input type="number" name="q" class="form-control" value="53" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Generate Keypair</button>
+                </form>
+                {% if public_key %}
+                <div class="alert alert-success mt-2">
+                    <small><strong>Public (e, n):</strong> {{ public_key }}</small><br>
+                    <small><strong>Private (d, n):</strong> {{ private_key }}</small>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Encryption -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>2. Encrypt Message</h4>
+                <form method="POST">
+                    <input type="hidden" name="action" value="encrypt">
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <input type="text" name="message" class="form-control" placeholder="Hello" required>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" name="e_key" class="form-control" placeholder="e" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" name="n_key" class="form-control" placeholder="n" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100 mt-3">Encrypt</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Decryption -->
+        <div class="col-md-4">
+            <div class="card p-3">
+                <h4>3. Decrypt Cipher</h4>
+                <form method="POST">
+                    <input type="hidden" name="action" value="decrypt">
+                    <div class="mb-3">
+                        <label class="form-label">Ciphertext (CSV)</label>
+                        <input type="text" name="ciphertext" class="form-control" placeholder="123, 456, ..." required>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="number" name="d_key" class="form-control" placeholder="d" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" name="n_key" class="form-control" placeholder="n" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 mt-3">Decrypt</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if result %}
+    <div class="alert alert-info mt-4 text-center">
+        <h5>{{ result }}</h5>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

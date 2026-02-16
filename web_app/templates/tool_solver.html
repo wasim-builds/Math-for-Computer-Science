@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Universal Math Solver 🧠</h2>
+    <p>Think of this as your local WolframAlpha. Enter Python/SymPy commands.</p>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card p-4">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Command</label>
+                        <textarea class="form-control" name="command" rows="2" placeholder="integrate(x**2 * sin(x), x)"
+                            style="font-family: monospace;"></textarea>
+                        <div class="form-text">
+                            Examples: <br>
+                            <code>integrate(exp(-x**2), (x, -oo, oo))</code> <br>
+                            <code>solve(x**2 - 5*x + 6, x)</code> <br>
+                            <code>diff(sin(x**2), x)</code>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Solve</button>
+                </form>
+
+                {% if result %}
+                <div class="alert alert-info mt-4 text-center">
+                    <h5>Result:</h5>
+                    <p class="fs-4">$$ {{ result }} $$</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

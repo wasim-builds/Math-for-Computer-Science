@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Content Reader</li>
+                </ol>
+            </nav>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5 content-body">
+                    {{ content | safe }}
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="/" class="btn btn-outline-secondary rounded-pill">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1 class="hero-title">Master the Math<br>Behind Computer Science</h1>
+        <p class="hero-subtitle">
+            A comprehensive, interactive curriculum fusing rigorous mathematics with practical Python implementations.
+            From <strong>Calculus</strong> to <strong>Cryptography</strong>.
+        </p>
+        <div class="mt-4">
+            <a href="/content/01-Calculus/limits.md" class="btn btn-primary rounded-pill px-4 py-2 me-2">Start
+                Learning</a>
+            <a href="/rsa" class="btn btn-outline-light rounded-pill px-4 py-2">Try Tools</a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row g-4">
+        <div class="col-12 text-center mb-3">
+            <h2 class="fw-bold">Explore Modules</h2>
+            <p class="text-muted">Interactive lessons designed for clarity and depth.</p>
+        </div>
+
+        <!-- Card 1: Calculus -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-primary-subtle text-primary mb-2">Foundation</span>
+                    <h5 class="card-title mt-2">Calculus & Optimization</h5>
+                    <p class="card-text text-muted small">Limits, Derivatives, and Gradient Descent. The engine of
+                        Machine Learning.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="/limit" class="btn btn-sm btn-outline-primary">Limit Tool</a>
+                        <a href="/derivative" class="btn btn-sm btn-outline-primary">Derivative</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Probability -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-success-subtle text-success mb-2">Data Science</span>
+                    <h5 class="card-title mt-2">Probability & Stats</h5>
+                    <p class="card-text text-muted small">Distributions, Bayes Theorem, and Hypothesis Testing.</p>
+                    <a href="/plot_distribution" class="btn btn-sm btn-outline-success mt-3">Visualise Data</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Cryptography -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-warning-subtle text-warning mb-2">Security</span>
+                    <h5 class="card-title mt-2">Cryptography (RSA)</h5>
+                    <p class="card-text text-muted small">Number Theory applied to secure communication. Encrypt
+                        messages.</p>
+                    <a href="/rsa" class="btn btn-sm btn-outline-warning mt-3">Launch Spy Tool</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4: Linear Algebra -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-info-subtle text-info mb-2">Graphics & AI</span>
+                    <h5 class="card-title mt-2">Linear Algebra</h5>
+                    <p class="card-text text-muted small">Vectors, Matrices, and Eigenvalues. The language of Neural
+                        Networks.</p>
+                    <a href="/content/04-Linear-Algebra/matrices.md" class="btn btn-sm btn-outline-info mt-3">Read
+                        Notes</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5: Discrete Math -->
+        <div class="col-md-4">
+            <div class="card h-100 p-3 border-0 shadow-sm">
+                <div class="card-body">
+                    <span class="badge bg-secondary-subtle text-secondary mb-2">Algorithms</span>
+                    <h5 class="card-title mt-2">Discrete Math</h5>
+                    <p class="card-text text-muted small">Logic, Combinatorics, and Graph Theory.</p>
+                    <a href="/content/05-Permutation-Combination/basics.md"
+                        class="btn btn-sm btn-outline-secondary mt-3">Learn Logic</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

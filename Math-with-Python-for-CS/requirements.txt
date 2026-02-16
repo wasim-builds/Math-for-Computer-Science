@@ -5,3 +5,6 @@ sympy
 networkx
 pandas
 notebook
+flask
+jinja2
+markdown

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Linear Optimization Solver (Simplex) 📉</h2>
+    <p>Minimize an objective function $c^T x$ subject to $A x \leq b$ and $x \geq 0$.</p>
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card p-4">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Objective Function Coefficients ($c$)</label>
+                        <input type="text" class="form-control" name="c" placeholder="e.g., -1, 4 (Minimize -x1 + 4x2)">
+                        <div class="form-text">Comma separated values.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Constraints Matrix ($A$)</label>
+                        <textarea class="form-control" name="A" rows="3" placeholder="-3, 1&#10;1, 2"></textarea>
+                        <div class="form-text">Rows separated by newlines, columns by commas.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Constraints Vector ($b$)</label>
+                        <input type="text" class="form-control" name="b" placeholder="e.g., 6, 4">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Optimize</button>
+                </form>
+
+                {% if result %}
+                <div class="alert alert-success mt-4">
+                    <pre>{{ result }}</pre>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
